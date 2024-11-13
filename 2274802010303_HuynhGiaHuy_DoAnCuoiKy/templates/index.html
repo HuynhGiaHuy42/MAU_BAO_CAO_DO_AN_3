@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng Ký / Đăng Nhập</title>
+    <!-- Bootstrap CSS CDN -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Custom button styling */
+      .btn-custom {
+        border-radius: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      .btn-register {
+        background-color: #007bff;
+        color: white;
+      }
+      .btn-register:hover {
+        background-color: #0056b3;
+      }
+      .btn-login {
+        background-color: #28a745;
+        color: white;
+      }
+      .btn-login:hover {
+        background-color: #1e7e34;
+      }
+      /* Custom form container styling */
+      .form-container {
+        max-width: 500px;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-light d-flex align-items-center justify-content-center vh-100"
+  >
+    <div class="container form-container">
+      <h1 class="text-center font-weight-bold mb-4">
+        {% if mode == 'register' %}Đăng Ký{% else %}Đăng Nhập{% endif %}
+      </h1>
+
+      {% if mode == 'register' %}
+      <!-- Form Đăng Ký -->
+      <form action="{{ url_for('register') }}" method="POST">
+        <div class="form-group">
+          <label for="username">Tên người dùng</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Mật khẩu</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="confirm_password">Xác nhận mật khẩu</label>
+          <input
+            type="password"
+            id="confirm_password"
+            name="confirm_password"
+            class="form-control"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-custom btn-register btn-block">
+          Đăng ký
+        </button>
+        <p class="text-center mt-3">
+          Đã có tài khoản?
+          <a href="{{ url_for('index', mode='login') }}">Đăng nhập</a>
+        </p>
+      </form>
+
+      {% else %}
+      <!-- Form Đăng Nhập -->
+      <form action="{{ url_for('login') }}" method="POST">
+        <div class="form-group">
+          <label for="login_username">Tên người dùng</label>
+          <input
+            type="text"
+            id="login_username"
+            name="username"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="login_password">Mật khẩu</label>
+          <input
+            type="password"
+            id="login_password"
+            name="password"
+            class="form-control"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-custom btn-login btn-block">
+          Đăng nhập
+        </button>
+        <p class="text-center mt-3">
+          Chưa có tài khoản?
+          <a href="{{ url_for('index', mode='register') }}">Đăng ký</a>
+        </p>
+      </form>
+      {% endif %}
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

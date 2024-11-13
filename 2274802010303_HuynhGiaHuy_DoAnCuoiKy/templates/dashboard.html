@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý sinh viên</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .btn-custom {
+        border-radius: 5px;
+        padding: 5px 10px;
+      }
+    </style>
+  </head>
+  <body class="bg-light min-vh-100">
+    <div class="container mt-5 p-4 bg-white rounded-lg shadow-lg">
+      <h1 class="text-center font-weight-bold mb-4">Danh sách sinh viên</h1>
+
+      <div class="d-flex justify-content-between mb-3">
+        <a
+          href="{{ url_for('add_sinh_vien') }}"
+          class="btn btn-primary btn-custom"
+        >
+          Thêm sinh viên mới
+        </a>
+        <a
+          href="{{ url_for('add_chuyen_nganh') }}"
+          class="btn btn-success btn-custom"
+        >
+          Thêm chuyên ngành
+        </a>
+      </div>
+
+      <table class="table table-bordered table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">STT</th>
+            <th scope="col">ID</th>
+            <th scope="col">Tên</th>
+            <th scope="col">Tuổi</th>
+            <th scope="col">Giới tính</th>
+            <th scope="col">Chuyên ngành</th>
+            <th scope="col" class="text-center">Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for sv in sinh_viens %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ sv.ID }}</td>
+            <!-- Hiển thị ID sinh viên -->
+            <td>{{ sv.Ten }}</td>
+            <td>{{ sv.Tuoi }}</td>
+            <td>{{ 'Nam' if sv.GioiTinh else 'Nữ' }}</td>
+            <td>{{ sv.chuyen_nganh.TenChuyenNganh }}</td>
+            <td class="text-center">
+              <a
+                href="{{ url_for('update_sinh_vien', id=sv.ID) }}"
+                class="btn btn-warning btn-sm btn-custom mr-2"
+              >
+                Sửa
+              </a>
+              <a
+                href="{{ url_for('delete_sinh_vien', id=sv.ID) }}"
+                class="btn btn-danger btn-sm btn-custom"
+                onclick="return confirm('Bạn có chắc chắn muốn xóa sinh viên này?');"
+              >
+                Xóa
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

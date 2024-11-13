@@ -1,0 +1,20 @@
+# TẠO DATABASE Tên QLSinhVien
+### Bước 2: Cài Đặt Các Gói Phụ Thuộc
+1. Cài đặt các gói cần thiết từ file `requirements.txt`:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+### Bước 3: Chạy Ứng Dụng
+1. Chạy ứng dụng từ file `app.py`:
+   ```bash
+   python run.py
+   ```
+
+### Bước 5: Tắt Môi Trường Ảo
+1. Khi xong, tắt môi trường ảo:
+   ```bash
+   deactivate
+   ```
+
+---

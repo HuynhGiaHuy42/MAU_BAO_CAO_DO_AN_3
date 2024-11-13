@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm hoặc Cập nhật Sinh viên</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container my-5">
+        <div class="card shadow-sm">
+            <div class="card-header text-center bg-primary text-white">
+                <h3>{% if sinh_vien %}Cập nhật{% else %}Thêm{% endif %} sinh viên</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% if sinh_vien %}
+                    <!-- Trường ID chỉ hiển thị khi đang ở chế độ Cập nhật -->
+                    <div class="form-group">
+                        <label for="id">ID Sinh viên:</label>
+                        <input type="text" name="id" value="{{ sinh_vien.ID }}" class="form-control" readonly />
+                    </div>
+                    {% endif %}
+                    
+                    <div class="form-group">
+                        <label for="ten">Tên:</label>
+                        <input type="text" name="ten" value="{{ sinh_vien.Ten if sinh_vien else '' }}" required class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tuoi">Tuổi:</label>
+                        <input type="number" name="tuoi" value="{{ sinh_vien.Tuoi if sinh_vien else '' }}" required class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gioi_tinh">Giới tính:</label>
+                        <select name="gioi_tinh" class="form-control">
+                            <option value="Nam" {% if sinh_vien and sinh_vien.GioiTinh %}selected{% endif %}>Nam</option>
+                            <option value="Nữ" {% if sinh_vien and not sinh_vien.GioiTinh %}selected{% endif %}>Nữ</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="chuyen_nganh_id">Chuyên ngành:</label>
+                        <select name="chuyen_nganh_id" class="form-control" required>
+                            {% for cn in chuyen_nganhs %}
+                                <option value="{{ cn.ChuyenNganhID }}" {% if sinh_vien and sinh_vien.ChuyenNganhID == cn.ChuyenNganhID %}selected{% endif %}>{{ cn.TenChuyenNganh }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

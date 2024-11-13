@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cập nhật sinh viên</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+  </head>
+  <body class="bg-light">
+    <div class="container py-5">
+      <div class="card shadow-sm">
+        <div class="card-header text-center bg-primary text-white">
+          <h3>Cập nhật sinh viên</h3>
+        </div>
+        <div class="card-body">
+          <form action="{{ url_for('update_sinh_vien_action', id=sv.ID) }}" method="POST">
+            <!-- Tên sinh viên -->
+            <div class="form-group">
+              <label for="ten" class="font-weight-bold">Tên sinh viên</label>
+              <input type="text" name="ten" id="ten" value="{{ sv.Ten }}" class="form-control" required />
+            </div>
+
+            <!-- Tuổi -->
+            <div class="form-group">
+              <label for="tuoi" class="font-weight-bold">Tuổi</label>
+              <input type="number" name="tuoi" id="tuoi" value="{{ sv.Tuoi }}" class="form-control" required min="18" max="100" />
+            </div>
+
+            <!-- Giới tính -->
+            <div class="form-group">
+              <label for="gioi_tinh" class="font-weight-bold">Giới tính</label>
+              <select name="gioi_tinh" id="gioi_tinh" class="form-control">
+                <option value="Nam" {{ 'selected' if sv.GioiTinh else '' }}>Nam</option>
+                <option value="Nữ" {{ 'selected' if not sv.GioiTinh else '' }}>Nữ</option>
+              </select>
+            </div>
+
+            <!-- Chuyên ngành -->
+            <div class="form-group">
+              <label for="chuyen_nganh" class="font-weight-bold">Chuyên ngành</label>
+              <select name="chuyen_nganh" id="chuyen_nganh" class="form-control">
+                {% for chuyen_nganh in chuyen_nganhs %}
+                  <option value="{{ chuyen_nganh.ID }}" {{ 'selected' if chuyen_nganh.ID == sv.chuyen_nganh.ID else '' }}>
+                    {{ chuyen_nganh.TenChuyenNganh }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="form-group text-center">
+              <button type="submit" class="btn btn-primary btn-lg">
+                Cập nhật
+              </button>
+              <a href="{{ url_for('danh_sach_sinh_vien') }}" class="btn btn-link ml-4">Quay lại</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
